@@ -1,11 +1,15 @@
-package Model;
+package com.tabibu.desktop.model;
 
-public class Healthcare_provider {
+public class HealthCareProvider {
     private int id;
-    private int phone;
+    private String phone;
     private String email;
     private String location;
     private String name;
+
+    public HealthCareProvider(String name) {
+        this.name = name;
+    }
 
     public int getId() {
         return id;
@@ -15,11 +19,11 @@ public class Healthcare_provider {
         this.id = id;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

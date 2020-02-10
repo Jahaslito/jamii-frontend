@@ -1,4 +1,4 @@
-package Model;
+package com.tabibu.desktop.model;
 
 import java.sql.Date;
 

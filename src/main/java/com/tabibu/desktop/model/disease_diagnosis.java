@@ -1,4 +1,4 @@
-package Model;
+package com.tabibu.desktop.model;
 
 public class disease_diagnosis {
     private int disease_id;

@@ -1,19 +1,17 @@
 package com.tabibu.desktop;
 
 import com.tabibu.desktop.controller.HealthCareProviderController;
-import com.tabibu.desktop.controller.IHealthCareProviderController;
-import com.tabibu.desktop.controller.TabibuController;
 import com.tabibu.desktop.repository.HealthCareProviderRepository;
 import com.tabibu.desktop.repository.IProviderRepository;
+import com.tabibu.desktop.repository.TabibuApiService;
 import com.tabibu.desktop.view.HealthCareProviderView;
-import com.tabibu.desktop.view.IHealthCareProviderView;
-import com.tabibu.desktop.view.TabibuLayout1;
 import com.tabibu.desktop.view.TabibuStage;
 import javafx.application.Application;
-
 import javafx.scene.Scene;
-
 import javafx.stage.Stage;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class TabibuApplication extends Application {
@@ -34,5 +32,15 @@ public class TabibuApplication extends Application {
 
     public static void main(String args) {
         launch(args);
+    }
+
+    public static TabibuApiService getApiService() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://0d840305.ngrok.io/api/v1/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        return retrofit.create(TabibuApiService.class);
     }
 }

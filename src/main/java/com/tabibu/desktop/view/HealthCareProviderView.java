@@ -5,11 +5,13 @@ import com.tabibu.desktop.model.HealthCareProvider;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.util.List;
 
-public class HealthCareProviderView extends StackPane implements IHealthCareProviderView {
+public class HealthCareProviderView extends VBox implements IHealthCareProviderView {
 
     private IHealthCareProviderController controller;
 
@@ -23,14 +25,15 @@ public class HealthCareProviderView extends StackPane implements IHealthCareProv
 
     @Override
     public void displayHealthCareProviders(Single<List<HealthCareProvider>> providers) {
+        ListView list=new ListView();
         providers.subscribe(healthCareProviders -> {
             healthCareProviders.forEach(healthCareProvider -> {
-                Label mLabel = new Label();
-                mLabel.setText(healthCareProvider.getName());
-                mLabel.setMaxWidth(180);
-                mLabel.setWrapText(true);
-                this.getChildren().add(mLabel);
+                list.getItems().add(healthCareProvider.getName());
+
+
+
             });
         });
+        this.getChildren().add(list);
     }
 }

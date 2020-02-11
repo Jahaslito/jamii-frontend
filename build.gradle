@@ -49,6 +49,19 @@ dependencies {
     // RxJava
     implementation "io.reactivex.rxjava2:rxjava:2.2.17"
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
+    //googlemaps
+    compile 'com.google.maps:google-maps-services:0.11.0'
+    implementation 'org.slf4j:slf4j-simple:1.7.25'
+    //forms fx
+    implementation 'com.dlsc.formsfx:formsfx-core:11.4.1'
+    //workbench
+    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '11.1.0'
+
+    compile group: 'com.lynden', name: 'GMapsFX', version: '2.0.9'
+
+
+    //implementation 'com.google.android.material:material:1.0.0'
+
 
 }
 mainClassName='com.tabibu.desktop.TabibuApplication'

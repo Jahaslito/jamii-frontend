@@ -1,6 +1,6 @@
-package com.tabibu.desktop.view;
+package com.tabibu.desktop.providers;
 
-import com.tabibu.desktop.model.HealthCareProvider;
+import com.tabibu.desktop.providers.HealthCareProvider;
 import io.reactivex.Single;
 
 import java.util.List;

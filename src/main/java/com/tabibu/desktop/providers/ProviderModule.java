@@ -1,4 +1,4 @@
-package com.tabibu.desktop.view;
+package com.tabibu.desktop.providers;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.tabibu.desktop.providers.HealthCareProviderView;
@@ -15,7 +15,6 @@ public class ProviderModule extends WorkbenchModule {
 
     @Override
     public Node activate() {
-        provider = new HealthCareProviderView();
         return provider;
     }
 }

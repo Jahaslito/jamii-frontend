@@ -1,17 +1,27 @@
-package com.tabibu.desktop.view;
+package com.tabibu.desktop.providers;
 
-import com.tabibu.desktop.controller.IHealthCareProviderController;
-import com.tabibu.desktop.model.HealthCareProvider;
 import io.reactivex.Single;
-import javafx.scene.control.ListView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 import java.util.List;
 
 
-public class HealthCareProviderView extends VBox implements IHealthCareProviderView {
+public class HealthCareProviderView extends Group implements IHealthCareProviderView {
 
     private IHealthCareProviderController controller;
+    private ObservableList<HealthCareProvider> providerList = FXCollections.observableArrayList();
+    private TableView providersTable = new TableView();
+
+    public HealthCareProviderView() {
+        initDataTable();
+    }
 
     public void setController(IHealthCareProviderController controller) {
         this.controller = controller;
@@ -23,15 +33,39 @@ public class HealthCareProviderView extends VBox implements IHealthCareProviderV
 
     @Override
     public void displayHealthCareProviders(Single<List<HealthCareProvider>> providers) {
-        ListView list = new ListView();
-        String result = "hi";
         providers.subscribe
                 (healthCareProviders -> {
-                    healthCareProviders.forEach(healthCareProvider -> {
-                        list.getItems().add(healthCareProvider.getName());
-                        System.out.println(healthCareProvider.getName());
-                    });
+                    providerList.addAll(healthCareProviders);
                 });
-        this.getChildren().add(list);
+    }
+
+    public void initDataTable(){
+        providersTable.setEditable(true);
+        providersTable.setMinWidth(1000);
+        providersTable.setMinHeight(500);
+
+        TableColumn providerName = new TableColumn("Name");
+        TableColumn providerPhone = new TableColumn("Phone");
+        TableColumn providerEmail = new TableColumn("Email");
+        TableColumn providerLocation =new TableColumn("Location");
+
+        providerName.setCellValueFactory(
+                new PropertyValueFactory<HealthCareProvider, Integer>("Name")
+        );
+        providerPhone.setCellValueFactory(
+                new PropertyValueFactory<HealthCareProvider,String>("Phone")
+        );
+        providerEmail.setCellValueFactory(
+                new PropertyValueFactory<HealthCareProvider,String>("Email")
+        );
+        providerLocation.setCellValueFactory(
+                new PropertyValueFactory<HealthCareProvider,String>("Location")
+        );
+        providersTable.getColumns().addAll(providerName, providerPhone, providerEmail, providerLocation);
+        providersTable.setItems(providerList);
+
+
+
+        this.getChildren().add(providersTable);
     }
 }

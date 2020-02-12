@@ -1,4 +1,4 @@
-package com.tabibu.desktop.view;
+package com.tabibu.desktop.diseases;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
@@ -6,8 +6,8 @@ import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
-public class Diseasemodule extends WorkbenchModule {
-    public Diseasemodule() {
+public class DiseaseModule extends WorkbenchModule {
+    public DiseaseModule() {
         super("Disease module", MaterialDesignIcon.THUMB_UP); // a name and an icon is required
 
     }

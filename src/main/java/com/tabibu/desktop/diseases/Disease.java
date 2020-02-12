@@ -1,4 +1,4 @@
-package com.tabibu.desktop.model;
+package com.tabibu.desktop.diseases;
 
 public class Disease {
     private String name;

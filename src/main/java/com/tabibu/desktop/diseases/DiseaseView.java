@@ -1,7 +1,5 @@
-package com.tabibu.desktop.view;
+package com.tabibu.desktop.diseases;
 
-import com.tabibu.desktop.controller.IDiseaseController;
-import com.tabibu.desktop.model.Disease;
 import io.reactivex.Single;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;

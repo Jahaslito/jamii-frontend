@@ -1,6 +1,6 @@
-package com.tabibu.desktop.view;
+package com.tabibu.desktop.diagnosis;
 
-import com.tabibu.desktop.model.Diagnosis;
+import com.tabibu.desktop.diagnosis.Diagnosis;
 import io.reactivex.Single;
 
 import java.util.List;

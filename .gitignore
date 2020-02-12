@@ -33,8 +33,9 @@ hs_err_pid*
 # .idea/uiDesigner.xml
 
 # Gradle:
-# .idea/gradle.xml
-# .idea/libraries
+ .idea/gradle.xml
+ .idea/libraries
+ .gradle/**
 
 # Mongo Explorer plugin:
 # .idea/mongoSettings.xml
@@ -60,3 +61,6 @@ crashlytics.properties
 crashlytics-build.properties
 
 # Created by .ignore support plugin (hsz.mobi)
+
+# Build generated artifacts
+build/**

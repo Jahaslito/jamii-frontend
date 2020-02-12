@@ -1,4 +1,4 @@
-package com.tabibu.desktop.model;
+package com.tabibu.desktop.providers;
 
 public class HealthCareProvider {
     private int id;

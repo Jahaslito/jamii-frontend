@@ -1,13 +1,9 @@
-package com.tabibu.desktop.repository;
+package com.tabibu.desktop.providers;
 
 import com.tabibu.desktop.TabibuApplication;
-import com.tabibu.desktop.model.HealthCareProvider;
+import com.tabibu.desktop.data.TabibuApiService;
 import io.reactivex.Single;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HealthCareProviderRepository implements IProviderRepository {
@@ -16,5 +12,10 @@ public class HealthCareProviderRepository implements IProviderRepository {
     @Override
     public Single<List<HealthCareProvider>> getAllProviders() {
         return apiService.getAllProviders();
+    }
+
+    @Override
+    public Single<HealthCareProvider> getProvider(int id) {
+        return apiService.getProvider(id);
     }
 }

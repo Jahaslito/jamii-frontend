@@ -1,7 +1,7 @@
-package com.tabibu.desktop.repository;
+package com.tabibu.desktop.diagnosis;
 
 import com.tabibu.desktop.TabibuApplication;
-import com.tabibu.desktop.model.Diagnosis;
+import com.tabibu.desktop.data.TabibuApiService;
 import io.reactivex.Single;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.tabibu.desktop.view;
+package com.tabibu.desktop.diseases;
 
-import com.tabibu.desktop.model.Disease;
+import com.tabibu.desktop.diseases.Disease;
 import io.reactivex.Single;
 
 import java.util.List;

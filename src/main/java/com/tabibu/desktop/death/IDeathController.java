@@ -1,4 +1,4 @@
-package com.tabibu.desktop.controller;
+package com.tabibu.desktop.death;
 
 public interface IDeathController {
     void getAllDeaths();

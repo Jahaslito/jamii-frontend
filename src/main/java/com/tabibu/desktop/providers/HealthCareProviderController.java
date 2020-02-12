@@ -1,7 +1,4 @@
-package com.tabibu.desktop.controller;
-
-import com.tabibu.desktop.repository.IProviderRepository;
-import com.tabibu.desktop.view.IHealthCareProviderView;
+package com.tabibu.desktop.providers;
 
 public class HealthCareProviderController implements IHealthCareProviderController {
     private IHealthCareProviderView healthCareProviderView;

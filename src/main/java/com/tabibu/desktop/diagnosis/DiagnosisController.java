@@ -1,9 +1,6 @@
-package com.tabibu.desktop.controller;
+package com.tabibu.desktop.diagnosis;
 
-import com.tabibu.desktop.model.Diagnosis;
-import com.tabibu.desktop.repository.IDiagnosisRepository;
-import com.tabibu.desktop.view.IDiagnosisView;
-import com.tabibu.desktop.view.IDiseaseView;
+import com.tabibu.desktop.diseases.IDiseaseController;
 
 public class DiagnosisController implements IDiseaseController {
     private IDiagnosisView diagnosisView;

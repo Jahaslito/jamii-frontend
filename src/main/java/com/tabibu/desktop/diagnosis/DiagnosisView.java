@@ -1,7 +1,8 @@
-package com.tabibu.desktop.view;
+package com.tabibu.desktop.diagnosis;
 
-import com.tabibu.desktop.controller.IDiagnosisController;
-import com.tabibu.desktop.model.Diagnosis;
+import com.tabibu.desktop.diagnosis.IDiagnosisController;
+import com.tabibu.desktop.diagnosis.Diagnosis;
+import com.tabibu.desktop.diagnosis.IDiagnosisView;
 import io.reactivex.Single;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;

@@ -1,4 +1,4 @@
-package com.tabibu.desktop.controller;
+package com.tabibu.desktop.diagnosis;
 
 public interface IDiagnosisController {
     void getAllDiagnosis();

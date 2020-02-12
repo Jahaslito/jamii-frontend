@@ -1,10 +1,11 @@
-package com.tabibu.desktop.repository;
+package com.tabibu.desktop.providers;
 
-import com.tabibu.desktop.model.HealthCareProvider;
 import io.reactivex.Single;
 
 import java.util.List;
 
 public interface IProviderRepository {
     Single<List<HealthCareProvider>> getAllProviders();
+
+    Single<HealthCareProvider> getProvider(int id);
 }

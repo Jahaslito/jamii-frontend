@@ -1,10 +1,10 @@
-package com.tabibu.desktop.view;
+package com.tabibu.desktop.death;
 
-import com.tabibu.desktop.model.Death;
+import com.tabibu.desktop.death.Death;
 import io.reactivex.Single;
 
 import java.util.List;
 
 public interface IDeathView {
-    void displayDeath(Single<List<Death>> deaths);
+    void displayDeaths(List<DeathViewModel> deaths);
 }

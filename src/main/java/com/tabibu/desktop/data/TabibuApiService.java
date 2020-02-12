@@ -1,9 +1,9 @@
 package com.tabibu.desktop.repository;
 
 import com.tabibu.desktop.model.Death;
-import com.tabibu.desktop.model.Diagnosis;
-import com.tabibu.desktop.model.Disease;
-import com.tabibu.desktop.model.HealthCareProvider;
+import com.tabibu.desktop.diagnosis.Diagnosis;
+import com.tabibu.desktop.diseases.Disease;
+import com.tabibu.desktop.providers.HealthCareProvider;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 

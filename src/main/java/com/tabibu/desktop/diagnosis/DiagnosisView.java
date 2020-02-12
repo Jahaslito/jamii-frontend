@@ -1,8 +1,6 @@
 package com.tabibu.desktop.view;
 
-import com.tabibu.desktop.controller.IDeathController;
 import com.tabibu.desktop.controller.IDiagnosisController;
-import com.tabibu.desktop.model.Death;
 import com.tabibu.desktop.model.Diagnosis;
 import io.reactivex.Single;
 import javafx.scene.control.ListView;
@@ -17,7 +15,7 @@ public class DiagnosisView extends VBox implements IDiagnosisView {
         ListView list=new ListView();
         diagnoses.subscribe(diagnosis1-> {
             diagnosis1.forEach(diagnosis-> {
-                list.getItems().add(diagnosis.getDiagnosis_date());
+                list.getItems().add(diagnosis.getDiagnosisDate());
 
 
 

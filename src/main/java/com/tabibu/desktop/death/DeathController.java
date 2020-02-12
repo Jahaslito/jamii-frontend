@@ -1,10 +1,7 @@
 package com.tabibu.desktop.controller;
 
-import com.tabibu.desktop.repository.DeathRepository;
 import com.tabibu.desktop.repository.IDeathRepository;
-import com.tabibu.desktop.repository.IProviderRepository;
 import com.tabibu.desktop.view.IDeathView;
-import com.tabibu.desktop.view.IHealthCareProviderView;
 
 public class DeathController implements IDeathController {
     private IDeathView DeathView;

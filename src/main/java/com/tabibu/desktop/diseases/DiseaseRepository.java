@@ -14,7 +14,7 @@ public class DiseaseRepository implements IDiseaseRepository {
     }
 
     @Override
-    public Single<Disease> getDisease(int id) {
+    public Single<Disease> getDisease(Disease id) {
         return apiService.getDisease(id);
     }
 }

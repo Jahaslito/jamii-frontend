@@ -1,9 +1,9 @@
 package com.tabibu.desktop.diseases;
 
 public class Disease {
-    private String name;
-    private String descrription;
     private int id;
+    private String name;
+    private String description;
 
     public String getName() {
         return name;
@@ -13,12 +13,12 @@ public class Disease {
         this.name = name;
     }
 
-    public String getDescrription() {
-        return descrription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrription(String descrription) {
-        this.descrription = descrription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getId() {

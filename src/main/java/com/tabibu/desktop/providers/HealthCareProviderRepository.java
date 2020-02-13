@@ -15,7 +15,7 @@ public class HealthCareProviderRepository implements IProviderRepository {
     }
 
     @Override
-    public Single<HealthCareProvider> getProvider(int id) {
+    public Single<HealthCareProvider> getProvider(HealthCareProvider id) {
         return apiService.getProvider(id);
     }
 }

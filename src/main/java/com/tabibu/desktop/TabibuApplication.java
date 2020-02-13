@@ -3,11 +3,11 @@ package com.tabibu.desktop;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import com.tabibu.desktop.death.*;
+import com.tabibu.desktop.diseases.*;
 import com.tabibu.desktop.providers.HealthCareProviderController;
 import com.tabibu.desktop.providers.HealthCareProviderRepository;
 import com.tabibu.desktop.providers.IProviderRepository;
 import com.tabibu.desktop.data.TabibuApiService;
-import com.tabibu.desktop.diseases.DiseaseModule;
 import com.tabibu.desktop.providers.ProviderModule;
 import com.tabibu.desktop.providers.HealthCareProviderView;
 
@@ -26,11 +26,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TabibuApplication extends Application {
     Stage stage;
     private Workbench workbench;
+
+
     HealthCareProviderView providerView;
     DeathView deathView;
+    DiseaseView diseaseView;
 
     public void start(Stage primaryStage) throws Exception {
-
         IProviderRepository providerRepository = new HealthCareProviderRepository();
         HealthCareProviderController providerController = new HealthCareProviderController(providerRepository);
         providerView = new HealthCareProviderView();
@@ -43,15 +45,12 @@ public class TabibuApplication extends Application {
             deathView.setController(deathController);
         deathController.setView(deathView);
         deathView.loadData();
-
-
-
-
-//        Scene scene = new Scene(providerView);
-//        stage = new Stage();
-//        stage.setScene(scene);
-//        stage.show();
-
+        IDiseaseRepository diseaseRepository = new DiseaseRepository();
+        DiseaseController diseaseController = new DiseaseController(diseaseRepository);
+        diseaseView= new DiseaseView();
+        diseaseView.setController(diseaseController);
+        diseaseController.setView(diseaseView);
+        diseaseView.loadData();
 
         initWorkbench();
         Scene myScene = new Scene(workbench);
@@ -72,15 +71,15 @@ public class TabibuApplication extends Application {
         workbench =
                 Workbench.builder(
                         new ProviderModule(providerView),
-                        new DiseaseModule(),
+                        new DiseaseModule(diseaseView),
                         new DeathModule(deathView)
-
                 )
-                        .toolbarLeft(new ToolbarItem("WorkbenchFX"))
+                        .toolbarLeft(new ToolbarItem("Tabibu Healthcare"))
                         .navigationDrawerItems(item1, item2, item3, item4)
                         .build();
 
-        item1.setOnAction(event -> workbench.hideNavigationDrawer());
+        item1.setOnAction(event -> workbench.showConfirmationDialog("Reset settings",
+                "Are you sure you want to reset all your settings?", null));
         item2.setOnAction(event -> workbench.hideNavigationDrawer());
         item3.setOnAction(event -> workbench.hideNavigationDrawer());
 
@@ -93,7 +92,7 @@ public class TabibuApplication extends Application {
 
     public static TabibuApiService getApiService() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://d1bc3cca.ngrok.io/api/v1/")
+                .baseUrl("http://ec2-54-169-6-222.ap-southeast-1.compute.amazonaws.com/api/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

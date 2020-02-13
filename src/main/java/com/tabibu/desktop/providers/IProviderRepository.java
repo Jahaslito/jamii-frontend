@@ -7,5 +7,5 @@ import java.util.List;
 public interface IProviderRepository {
     Single<List<HealthCareProvider>> getAllProviders();
 
-    Single<HealthCareProvider> getProvider(int id);
+    Single<HealthCareProvider> getProvider(HealthCareProvider id);
 }

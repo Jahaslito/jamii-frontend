@@ -58,6 +58,8 @@ dependencies {
 
 
 
+
+
     compile group: 'de.jensd', name: 'fontawesomefx', version: '8.9'
 
 

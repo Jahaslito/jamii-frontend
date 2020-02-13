@@ -8,8 +8,9 @@ import java.util.List;
 
 public class DiagnosisRepository implements IDiagnosisRepository {
     TabibuApiService apiService= TabibuApplication.getApiService();
+
     @Override
-    public Single<List<Diagnosis>> getAllDiagnosis() {
-        return apiService.getAllDiagnosis();
+    public Single<List<Diagnosis>> getAllDiagnosis(int providerId) {
+        return apiService.getAllDiagnosis(providerId);
     }
 }

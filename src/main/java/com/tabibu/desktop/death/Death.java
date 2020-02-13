@@ -1,11 +1,14 @@
 package com.tabibu.desktop.death;
 
+import com.tabibu.desktop.diseases.Disease;
+import com.tabibu.desktop.providers.HealthCareProvider;
+
 public class Death {
     private int id;
     private int corpseAge;
     private String deathDate;
-    private int diseaseId;
-    private int healthCareProviderId;
+    private Disease disease;
+    private HealthCareProvider healthCareProvider;
 
     public int getId() {
         return id;
@@ -31,19 +34,19 @@ public class Death {
         this.deathDate = deathDate;
     }
 
-    public int getDiseaseId() {
-        return diseaseId;
+    public Disease getDisease() {
+        return disease;
     }
 
-    public void setDiseaseId(int diseaseId) {
-        this.diseaseId = diseaseId;
+    public void setDisease(Disease disease) {
+        this.disease = disease;
     }
 
-    public int getHealthCareProviderId() {
-        return healthCareProviderId;
+    public HealthCareProvider getHealthCareProvider() {
+        return healthCareProvider;
     }
 
-    public void setHealthCareProviderId(int healthCareProviderId) {
-        this.healthCareProviderId = healthCareProviderId;
+    public void setHealthCareProvider(HealthCareProvider healthCareProvider) {
+        this.healthCareProvider = healthCareProvider;
     }
 }

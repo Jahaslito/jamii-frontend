@@ -2,20 +2,21 @@ package com.tabibu.desktop.diseases;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.tabibu.desktop.providers.HealthCareProviderView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
 public class DiseaseModule extends WorkbenchModule {
-    public DiseaseModule() {
-        super("Disease module", MaterialDesignIcon.THUMB_UP); // a name and an icon is required
+    DiseaseView diseaseView;
 
+    public DiseaseModule(DiseaseView view) {
+        super("Diseases", MaterialDesignIcon.BIO); // a name and an icon is required
+        diseaseView = view;
     }
-
 
     @Override
     public Node activate() {
-        // provider=new HealthCareProviderView();
-        return  new Label("hello") ;
+        return diseaseView;
     }
 }

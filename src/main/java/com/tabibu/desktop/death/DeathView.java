@@ -1,9 +1,13 @@
 package com.tabibu.desktop.death;
 
+import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.model.structure.Form;
+import com.dlsc.formsfx.model.structure.Group;
 import com.tabibu.desktop.providers.HealthCareProvider;
 import io.reactivex.Single;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -59,6 +63,8 @@ public class DeathView extends VBox implements IDeathView{
         );
         deathsTable.getColumns().addAll(age, date,diseaseId,healthCareProviderId);
         deathsTable.setItems(deathList);
+        Death placeHolder=new Death();
+
 
 
 

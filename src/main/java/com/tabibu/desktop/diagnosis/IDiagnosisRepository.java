@@ -6,5 +6,5 @@ import io.reactivex.Single;
 import java.util.List;
 
 public interface  IDiagnosisRepository {
-    Single<List<Diagnosis>> getAllDiagnosis();
+    Single<List<Diagnosis>> getAllDiagnosis(int providerId);
 }

@@ -1,17 +1,19 @@
 package com.tabibu.desktop.death;
 
-import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.formsfx.model.structure.Form;
-import com.dlsc.formsfx.model.structure.Group;
 import com.tabibu.desktop.providers.HealthCareProvider;
-import io.reactivex.Single;
+import com.tabibu.desktop.util.TableBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.sql.Date;
 import java.util.List;
@@ -20,10 +22,11 @@ public class DeathView extends VBox implements IDeathView{
 
     private IDeathController controller;
     private ObservableList<DeathViewModel> deathList = FXCollections.observableArrayList();
-    private TableView deathsTable = new TableView();
+
 
     public DeathView() {
         initDataTable();
+        addDeath();
     }
 
     public void setController(IDeathController controller) {
@@ -32,6 +35,32 @@ public class DeathView extends VBox implements IDeathView{
 
     public void loadData() {
         this.controller.getAllDeaths();
+
+
+    }
+    public void addDeath(){
+        TextField corpseAge=new TextField("age");
+        TextField providername=new TextField("helathcare provider");
+        TextField causeOfDeath=new TextField("cause of field");
+        DatePicker date=new DatePicker();
+        int age=45;
+        Button add=new Button("add");
+        add.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                controller.addDeath(age,causeOfDeath.getText(),providername.getText(),date.getPromptText());
+                System.out.println("added");
+
+            }
+        });
+
+        this.getChildren().addAll(corpseAge,causeOfDeath,providername,date,add);
+
+
+
+
+
+
     }
 
     @Override
@@ -39,34 +68,19 @@ public class DeathView extends VBox implements IDeathView{
        deathList.addAll(deaths);
     }
 
-    public void initDataTable(){
-        deathsTable.setEditable(true);
-        deathsTable.setMinWidth(1000);
-        deathsTable.setMinHeight(500);
-
-        TableColumn age = new TableColumn("Corpse Age");
-        TableColumn date = new TableColumn("Death Date");
-        TableColumn diseaseId =new TableColumn("Disease");
-        TableColumn healthCareProviderId =new TableColumn("Health Care Provider");
-
-        age.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider,Integer>("corpseAge")
-        );
-        date.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider, Date>("deathDate")
-        );
-        diseaseId.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider,String>("diseaseName")
-        );
-        healthCareProviderId.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider,String>("providerName")
-        );
-        deathsTable.getColumns().addAll(age, date,diseaseId,healthCareProviderId);
-        deathsTable.setItems(deathList);
-        Death placeHolder=new Death();
-
-
-
+    public void initDataTable() {
+        TableView deathsTable = TableBuilder.createTable()
+                .withColumns(List.of(
+                        new TableColumn("Corpse Age"),
+                        new TableColumn("Death Date"),
+                        new TableColumn("Health Care Provider"),
+                        new TableColumn("Disease")
+                )).withProperties(List.of(
+                        new PropertyValueFactory<Death, Integer>("corpseAge"),
+                        new PropertyValueFactory<Death, String>("deathDate"),
+                        new PropertyValueFactory<Death, String>("providerName"),
+                        new PropertyValueFactory<Death, String>("diseaseName")
+                )).withData(deathList).build();
 
         this.getChildren().add(deathsTable);
     }

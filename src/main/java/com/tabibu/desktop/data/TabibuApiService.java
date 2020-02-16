@@ -1,13 +1,17 @@
 package com.tabibu.desktop.data;
 
 import com.tabibu.desktop.death.Death;
+import com.tabibu.desktop.death.DeathViewModel;
 import com.tabibu.desktop.diagnosis.Diagnosis;
 import com.tabibu.desktop.diseases.Disease;
 import com.tabibu.desktop.providers.HealthCareProvider;
+import com.tabibu.desktop.report.ReportViewModel;
 import io.reactivex.Single;
+import retrofit2.Call;
 import retrofit2.http.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TabibuApiService {
     @GET("providers")
@@ -30,6 +34,11 @@ public interface TabibuApiService {
 
     @GET("diagnosis")
     Single<List<Diagnosis>> getAllDiagnosis(@Query("healthCareProviderId") int providerId);
+
+    @POST("death")
+    Call<DeathViewModel> createPost(@Body DeathViewModel death);
+    @GET("reports")
+    Single <ReportViewModel> getReport(@Query("year") int year,@Query("diseaseId") int diseaseId);
 
 
 

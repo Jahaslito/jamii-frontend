@@ -1,48 +1,56 @@
 package com.tabibu.desktop.death;
 
-import com.tabibu.desktop.diseases.DiseaseRepository;
-import com.tabibu.desktop.providers.HealthCareProviderRepository;
-import io.reactivex.schedulers.Schedulers;
+import com.tabibu.desktop.diseases.IDiseaseRepository;
+import com.tabibu.desktop.diseases.IDiseaseView;
+import io.reactivex.functions.Consumer;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class DeathController implements IDeathController {
-    private IDeathView deathView;
-    private IDeathRepository deathRepository;
+    IDeathRepository deathRepository;
+    IDeathView deathView;
 
     public DeathController(IDeathRepository deathRepository) {
-     this.deathRepository = deathRepository;
+        this.deathRepository = deathRepository;
     }
 
     @Override
     public void getAllDeaths() {
-        deathRepository.getAllDeaths().subscribe(deathList -> {
-            List<DeathViewModel> deathViewModels = new ArrayList<>();
-            deathList.stream().forEach(death -> {
-                DeathViewModel deathViewModel = new DeathViewModel();
-                deathViewModel.setCorpseAge(death.getCorpseAge());
-                deathViewModel.setDeathDate(death.getDeathDate());
+        deathRepository.getAllDeaths().subscribe( deathList -> {
+            List<DeathViewModel> deathViewModels = deathList.stream().map(death -> new DeathViewModel(death.getCorpseAge(),
+                    death.getDisease().getName(),
+                    death.getHealthCareProvider().getName(),
+                    death.getDeathDate())).collect(Collectors.toList());
+            this.deathView.displayDeaths(deathViewModels);
 
-                // TODO: Implement dependency injection using Dagger2
-                HealthCareProviderRepository providerRepo = new HealthCareProviderRepository();
-                DiseaseRepository diseaseRepo = new DiseaseRepository();
+        });
+    }
+    public void addDeath( int corpseAge,String diseaseName,String providerName,String deathDate){
+        DeathViewModel death=new DeathViewModel(corpseAge,diseaseName,providerName,deathDate);
+        deathRepository.createPost(death).enqueue(new Callback<DeathViewModel>() {
 
-                providerRepo.getProvider(death.getHealthCareProvider())
-                        .subscribeOn(Schedulers.io())
-                        .subscribe(healthCareProvider -> {
-                            deathViewModel.setProviderName(healthCareProvider.getName());
-                        });
+            @Override
+            public void onResponse(Call<DeathViewModel> call, Response<DeathViewModel> response) {
+                if(response.isSuccessful()) {
+                    if (!response.isSuccessful()) {
+                        System.out.println("couldnt post on death");
+                        return;
+                    }
+                    System.out.println("posted");
+                }
+            }
 
-                diseaseRepo.getDisease(death.getDisease())
-                        .subscribeOn(Schedulers.io())
-                        .subscribe(disease -> {
-                            deathViewModel.setDiseaseName(disease.getName());
-                        });
+            @Override
+            public void onFailure(Call<DeathViewModel> call, Throwable t) {
+              System.out.println("successfully posted on death");
+            }
 
-                deathViewModels.add(deathViewModel);
-                deathView.displayDeaths(deathViewModels);
-            });
+
         });
     }
 

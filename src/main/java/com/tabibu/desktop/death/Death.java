@@ -6,9 +6,9 @@ import com.tabibu.desktop.providers.HealthCareProvider;
 public class Death {
     private int id;
     private int corpseAge;
-    private String deathDate;
-    private Disease disease;
     private HealthCareProvider healthCareProvider;
+    private Disease disease;
+    private String deathDate;
 
     public int getId() {
         return id;
@@ -26,14 +26,6 @@ public class Death {
         this.corpseAge = corpseAge;
     }
 
-    public String getDeathDate() {
-        return deathDate;
-    }
-
-    public void setDeathDate(String deathDate) {
-        this.deathDate = deathDate;
-    }
-
     public Disease getDisease() {
         return disease;
     }
@@ -48,5 +40,13 @@ public class Death {
 
     public void setHealthCareProvider(HealthCareProvider healthCareProvider) {
         this.healthCareProvider = healthCareProvider;
+    }
+
+    public String getDeathDate() {
+        return deathDate;
+    }
+
+    public void setDeathDate(String deathDate) {
+        this.deathDate = deathDate;
     }
 }

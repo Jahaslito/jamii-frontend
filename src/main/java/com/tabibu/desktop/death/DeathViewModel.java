@@ -6,6 +6,13 @@ public class DeathViewModel {
     private String providerName;
     private String deathDate;
 
+    public DeathViewModel(int corpseAge, String diseaseName, String providerName, String deathDate) {
+        this.corpseAge = corpseAge;
+        this.diseaseName = diseaseName;
+        this.providerName = providerName;
+        this.deathDate = deathDate;
+    }
+
     public int getCorpseAge() {
         return corpseAge;
     }

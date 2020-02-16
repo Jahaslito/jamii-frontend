@@ -11,7 +11,7 @@ public class DiagnosisController implements IDiagnosisController {
     public void getAllDiagnosis() {
         diagnosisView.displayAllDiagnosis(diagnosisRepository.getAllDiagnosis(1));
     }
-    public void setDiagnosisView(IDiagnosisView view){
+    public void setView(IDiagnosisView view){
         this.diagnosisView=view;
     }
 }

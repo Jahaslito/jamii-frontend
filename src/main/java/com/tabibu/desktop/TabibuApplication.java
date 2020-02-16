@@ -3,6 +3,7 @@ package com.tabibu.desktop;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import com.tabibu.desktop.death.*;
+import com.tabibu.desktop.diagnosis.*;
 import com.tabibu.desktop.diseases.*;
 import com.tabibu.desktop.providers.HealthCareProviderController;
 import com.tabibu.desktop.providers.HealthCareProviderRepository;
@@ -11,16 +12,23 @@ import com.tabibu.desktop.data.TabibuApiService;
 import com.tabibu.desktop.providers.ProviderModule;
 import com.tabibu.desktop.providers.HealthCareProviderView;
 
+import com.tabibu.desktop.report.ReportModule;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import javax.imageio.stream.FileImageInputStream;
+import java.io.FileInputStream;
+
+import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
 
 public class TabibuApplication extends Application {
@@ -31,6 +39,7 @@ public class TabibuApplication extends Application {
     HealthCareProviderView providerView;
     DeathView deathView;
     DiseaseView diseaseView;
+    DiagnosisView diagnosisView;
 
     public void start(Stage primaryStage) throws Exception {
         IProviderRepository providerRepository = new HealthCareProviderRepository();
@@ -39,24 +48,41 @@ public class TabibuApplication extends Application {
         providerView.setController(providerController);
         providerController.setView(providerView);
         providerView.loadData();
-      IDeathRepository deathRepository = new DeathRepository();
-      DeathController deathController = new DeathController(deathRepository);
-        deathView= new DeathView();
-            deathView.setController(deathController);
+
+
+
+        IDeathRepository deathRepository = new DeathRepository();
+        DeathController deathController = new DeathController(deathRepository);
+        deathView = new DeathView();
+        deathView.setController(deathController);
         deathController.setView(deathView);
         deathView.loadData();
+
+
         IDiseaseRepository diseaseRepository = new DiseaseRepository();
         DiseaseController diseaseController = new DiseaseController(diseaseRepository);
-        diseaseView= new DiseaseView();
+        diseaseView = new DiseaseView();
         diseaseView.setController(diseaseController);
         diseaseController.setView(diseaseView);
         diseaseView.loadData();
 
+        IDiagnosisRepository diagnosisRepository= new DiagnosisRepository();
+        DiagnosisController diagnosisController = new DiagnosisController(diagnosisRepository);
+        diagnosisView = new DiagnosisView();
+        diagnosisView.setController(diagnosisController);
+        diagnosisController.setView(diagnosisView);
+        diagnosisView.loadData();
+
         initWorkbench();
+
+        FileInputStream stream=new FileInputStream("C:\\Users\\gudle\\IdeaProjects\\tabibu-desktop\\src\\main\\java\\com\\tabibu\\desktop\\util\\backgground.png");
+        Image image=new Image(stream);
         Scene myScene = new Scene(workbench);
         primaryStage.setScene(myScene);
         primaryStage.setMaximized(true);
+        primaryStage.getIcons().add(image);
         primaryStage.show();
+
 
     }
 
@@ -72,7 +98,10 @@ public class TabibuApplication extends Application {
                 Workbench.builder(
                         new ProviderModule(providerView),
                         new DiseaseModule(diseaseView),
-                        new DeathModule(deathView)
+                        new DeathModule(deathView),
+                        new DiagnosisModule(diagnosisView),
+                        new ReportModule()
+
                 )
                         .toolbarLeft(new ToolbarItem("Tabibu Healthcare"))
                         .navigationDrawerItems(item1, item2, item3, item4)

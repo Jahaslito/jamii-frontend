@@ -35,7 +35,7 @@ hs_err_pid*
 # Gradle:
  .idea/gradle.xml
  .idea/libraries
- .gradle/**
+ .gradle/
 
 # Mongo Explorer plugin:
 # .idea/mongoSettings.xml
@@ -64,4 +64,3 @@ crashlytics-build.properties
 
 # Build generated artifacts
 build/**
-.idea/

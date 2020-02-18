@@ -49,9 +49,8 @@ public class ReportsView extends VBox implements IReportView {
             series.setName(disease);
             diseaseData.forEach((month, totalCases) -> {
                 series.getData().add(new XYChart.Data(month, totalCases));
-                lineChart.getData().add(series);
             });
-
+            lineChart.getData().add(series);
         });
         this.getChildren().add(lineChart);
     }

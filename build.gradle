@@ -9,7 +9,6 @@ plugins {
 group 'org.example'
 version '1.0-SNAPSHOT'
 
-
 sourceCompatibility = 12
 
 repositories {
@@ -20,8 +19,6 @@ javafx {
     version = "13"
     modules = [ 'javafx.controls', 'javafx.fxml','javafx.base','javafx.graphics','javafx.media','javafx.web','javafx.swing']
 }
-
-
 
 jlink {
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
@@ -52,21 +49,12 @@ dependencies {
 
     //forms fx
     implementation 'com.dlsc.formsfx:formsfx-core:11.4.1'
+
     //workbench
     compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '11.1.0'
-
-
-
-
-
-
     compile group: 'de.jensd', name: 'fontawesomefx', version: '8.9'
-
-
-
-
-
 }
+
 mainClassName='com.tabibu.desktop.TabibuApplication'
 
 

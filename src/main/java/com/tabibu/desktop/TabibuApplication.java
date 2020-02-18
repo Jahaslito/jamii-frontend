@@ -2,33 +2,22 @@ package com.tabibu.desktop;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
+import com.tabibu.desktop.data.TabibuApiService;
 import com.tabibu.desktop.death.*;
 import com.tabibu.desktop.diagnosis.*;
 import com.tabibu.desktop.diseases.*;
-import com.tabibu.desktop.providers.HealthCareProviderController;
-import com.tabibu.desktop.providers.HealthCareProviderRepository;
-import com.tabibu.desktop.providers.IProviderRepository;
-import com.tabibu.desktop.data.TabibuApiService;
-import com.tabibu.desktop.providers.ProviderModule;
-import com.tabibu.desktop.providers.HealthCareProviderView;
-
+import com.tabibu.desktop.providers.*;
 import com.tabibu.desktop.report.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Application;
 import javafx.scene.Scene;
-
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import javax.imageio.stream.FileImageInputStream;
-import java.io.FileInputStream;
-
-import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
 
 public class TabibuApplication extends Application {
@@ -40,6 +29,19 @@ public class TabibuApplication extends Application {
     private ReportsView reportsView;
 
     public void start(Stage primaryStage) throws Exception {
+        initMvc();
+        initWorkbench();
+
+        Image launcherIcon = new Image("/logo.png");
+        Scene myScene = new Scene(workbench);
+
+        primaryStage.setScene(myScene);
+        primaryStage.setMaximized(true);
+        primaryStage.getIcons().add(launcherIcon);
+        primaryStage.show();
+    }
+
+    private void initMvc() {
         IProviderRepository providerRepository = new HealthCareProviderRepository();
         HealthCareProviderController providerController = new HealthCareProviderController(providerRepository);
         providerView = new HealthCareProviderView();
@@ -61,7 +63,7 @@ public class TabibuApplication extends Application {
         diseaseController.setView(diseaseView);
         diseaseView.loadData();
 
-        IDiagnosisRepository diagnosisRepository= new DiagnosisRepository();
+        IDiagnosisRepository diagnosisRepository = new DiagnosisRepository();
         DiagnosisController diagnosisController = new DiagnosisController(diagnosisRepository);
         diagnosisView = new DiagnosisView();
         diagnosisView.setController(diagnosisController);
@@ -74,20 +76,6 @@ public class TabibuApplication extends Application {
         reportsView.setController(reportsController);
         reportsController.setView(reportsView);
         reportsView.loadData();
-
-
-        initWorkbench();
-
-        FileInputStream stream=new FileInputStream("C:\\Users\\gudle\\IdeaProjects\\tabibu-desktop\\src\\main\\java\\com\\tabibu\\desktop\\util\\backgground.png");
-        Image image=new Image(stream);
-        Scene myScene = new Scene(workbench);
-
-        primaryStage.setScene(myScene);
-        primaryStage.setMaximized(true);
-        primaryStage.getIcons().add(image);
-        primaryStage.show();
-
-
     }
 
     private Workbench initWorkbench() {
@@ -105,7 +93,6 @@ public class TabibuApplication extends Application {
                         new DeathModule(deathView),
                         new DiagnosisModule(diagnosisView),
                         new ReportModule(reportsView)
-
                 )
                         .toolbarLeft(new ToolbarItem("Tabibu Healthcare"))
                         .navigationDrawerItems(item1, item2, item3, item4)
@@ -115,10 +102,7 @@ public class TabibuApplication extends Application {
                 "Are you sure you want to reset all your settings?", null));
         item2.setOnAction(event -> workbench.hideNavigationDrawer());
         item3.setOnAction(event -> workbench.hideNavigationDrawer());
-
-
-
-
+        workbench.getStylesheets().add(this.getClass().getResource("/theme.css").toExternalForm());
 
         return workbench;
     }
@@ -133,7 +117,6 @@ public class TabibuApplication extends Application {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-
         return retrofit.create(TabibuApiService.class);
     }
 }

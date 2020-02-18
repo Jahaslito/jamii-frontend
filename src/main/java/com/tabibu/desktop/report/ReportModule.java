@@ -5,12 +5,15 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.scene.Node;
 
 public class ReportModule extends WorkbenchModule {
-    public ReportModule(){
+    ReportsView reportView;
+
+    public ReportModule(ReportsView reportView){
         super("Reports", FontAwesomeIcon.LINE_CHART);
+        this.reportView = reportView;
     };
+
     @Override
     public Node activate() {
-
-        return  new ReportsView();
+        return reportView;
     }
 }

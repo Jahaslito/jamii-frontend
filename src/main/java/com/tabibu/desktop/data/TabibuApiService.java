@@ -37,6 +37,7 @@ public interface TabibuApiService {
 
     @POST("death")
     Call<DeathViewModel> createPost(@Body DeathViewModel death);
+
     @GET("reports")
     Single <ReportViewModel> getReport(@Query("year") int year,@Query("diseaseId") int diseaseId);
 

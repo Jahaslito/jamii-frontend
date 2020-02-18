@@ -12,7 +12,7 @@ import com.tabibu.desktop.data.TabibuApiService;
 import com.tabibu.desktop.providers.ProviderModule;
 import com.tabibu.desktop.providers.HealthCareProviderView;
 
-import com.tabibu.desktop.report.ReportModule;
+import com.tabibu.desktop.report.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Application;
@@ -32,14 +32,12 @@ import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
 
 public class TabibuApplication extends Application {
-    Stage stage;
     private Workbench workbench;
-
-
-    HealthCareProviderView providerView;
-    DeathView deathView;
-    DiseaseView diseaseView;
-    DiagnosisView diagnosisView;
+    private HealthCareProviderView providerView;
+    private DeathView deathView;
+    private DiseaseView diseaseView;
+    private DiagnosisView diagnosisView;
+    private ReportsView reportsView;
 
     public void start(Stage primaryStage) throws Exception {
         IProviderRepository providerRepository = new HealthCareProviderRepository();
@@ -49,15 +47,12 @@ public class TabibuApplication extends Application {
         providerController.setView(providerView);
         providerView.loadData();
 
-
-
         IDeathRepository deathRepository = new DeathRepository();
         DeathController deathController = new DeathController(deathRepository);
         deathView = new DeathView();
         deathView.setController(deathController);
         deathController.setView(deathView);
         deathView.loadData();
-
 
         IDiseaseRepository diseaseRepository = new DiseaseRepository();
         DiseaseController diseaseController = new DiseaseController(diseaseRepository);
@@ -73,11 +68,20 @@ public class TabibuApplication extends Application {
         diagnosisController.setView(diagnosisView);
         diagnosisView.loadData();
 
+        IReportRepository reportRepository = new ReportRepository();
+        ReportsController reportsController = new ReportsController(reportRepository);
+        reportsView = new ReportsView();
+        reportsView.setController(reportsController);
+        reportsController.setView(reportsView);
+        reportsView.loadData();
+
+
         initWorkbench();
 
         FileInputStream stream=new FileInputStream("C:\\Users\\gudle\\IdeaProjects\\tabibu-desktop\\src\\main\\java\\com\\tabibu\\desktop\\util\\backgground.png");
         Image image=new Image(stream);
         Scene myScene = new Scene(workbench);
+
         primaryStage.setScene(myScene);
         primaryStage.setMaximized(true);
         primaryStage.getIcons().add(image);
@@ -100,7 +104,7 @@ public class TabibuApplication extends Application {
                         new DiseaseModule(diseaseView),
                         new DeathModule(deathView),
                         new DiagnosisModule(diagnosisView),
-                        new ReportModule()
+                        new ReportModule(reportsView)
 
                 )
                         .toolbarLeft(new ToolbarItem("Tabibu Healthcare"))
@@ -111,6 +115,10 @@ public class TabibuApplication extends Application {
                 "Are you sure you want to reset all your settings?", null));
         item2.setOnAction(event -> workbench.hideNavigationDrawer());
         item3.setOnAction(event -> workbench.hideNavigationDrawer());
+
+
+
+
 
         return workbench;
     }

@@ -2,7 +2,7 @@ package com.tabibu.desktop.report;
 
 public class CaseViewModel {
     String month;
-    int Totalcases;
+    int totalCases;
 
     public String getMonth() {
         return month;
@@ -12,11 +12,11 @@ public class CaseViewModel {
         this.month = month;
     }
 
-    public int getTotalcases() {
-        return Totalcases;
+    public int getTotalCases() {
+        return totalCases;
     }
 
-    public void setTotalcases(int totalcases) {
-        Totalcases = totalcases;
+    public void setTotalCases(int totalCases) {
+        this.totalCases = totalCases;
     }
 }

@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface IReportRepository {
-    Single<ReportViewModel> getReport(int year,int diseaseId);
+    Single<ReportViewModel> getReport(int year, int diseaseId);
 }

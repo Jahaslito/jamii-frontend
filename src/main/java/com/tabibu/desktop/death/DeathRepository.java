@@ -2,7 +2,6 @@ package com.tabibu.desktop.death;
 
 import com.tabibu.desktop.TabibuApplication;
 import com.tabibu.desktop.data.TabibuApiService;
-import com.tabibu.desktop.providers.HealthCareProvider;
 import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;

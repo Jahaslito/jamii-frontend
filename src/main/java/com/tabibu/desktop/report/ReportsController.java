@@ -1,57 +1,46 @@
 package com.tabibu.desktop.report;
 
+import com.tabibu.desktop.diseases.DiseaseRepository;
+import com.tabibu.desktop.diseases.IDiseaseRepository;
+import io.reactivex.schedulers.Schedulers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReportsController implements IReportController {
-    IReportRepository reportRepository;
+    private IReportRepository reportRepository;
     private ObservableList<ReportViewModel> reportsList = FXCollections.observableArrayList();
-    List<List<CaseViewModel>> cases = new ArrayList<List<CaseViewModel>>();
-    List<Integer> totalcasesInAyear=new ArrayList<>();
-    public List<List<CaseViewModel>> getCases() {
-        return cases;
-    }
-    public List<ReportViewModel> getReportsList() {
-        return reportsList;
-    }
-
-
-    public List<Integer> getTotalcasesInAyear() {
-       return totalcasesInAyear;
-    }
+    private IReportView reportView;
 
     public ReportsController(IReportRepository reportRepository) {
         this.reportRepository = reportRepository;
-        getAllReports();
-
     }
 
-
     public void getAllReports() {
-
-
-        for (int i = 1; i < 12; i++) {
-
-            reportRepository.getReport(2019,i).subscribe(report-> {
-                reportsList.addAll(report);
+        HashMap<String, Integer> reportedCases = new HashMap<>();
+        DiseaseRepository diseaseRepository = new DiseaseRepository();
+        diseaseRepository.getAllDiseases().subscribe(diseases -> {
+            diseases.forEach(disease -> {
+                reportRepository.getReport(2019, disease.getId())
+                        .subscribe(report -> {
+                            this.reportsList.add(report);
+                            int totalCasesInAYear = report.getCases()
+                                    .stream().map(CaseViewModel::getTotalCases)
+                                    .mapToInt(Integer::intValue)
+                                    .sum();
+                            reportedCases.put(disease.getName(), totalCasesInAYear);
+                        });
             });
+        });
+        reportView.displayPieChartAnalytics(reportedCases);
+    }
 
-        }
-        for(int i=0;i<reportsList.size();i++)
-        {
-            int counter=0;
-            for(int j=1;j<12;j++) {
-                counter=counter+reportsList.get(i).getCases().get(j).getTotalcases();
-                System.out.println(reportsList.get(i).getCases().get(j).getTotalcases());
-
-            }
-            System.out.println(counter);
-            totalcasesInAyear.add(counter);
-        }
-
+    public void setView(IReportView view) {
+        this.reportView = view;
     }
 }
 

@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 public class ReportsController implements IReportController {
     private IReportRepository reportRepository;
-    private ObservableList<ReportViewModel> reportsList = FXCollections.observableArrayList();
     private IReportView reportView;
 
     public ReportsController(IReportRepository reportRepository) {
@@ -21,22 +20,30 @@ public class ReportsController implements IReportController {
     }
 
     public void getAllReports() {
-        HashMap<String, Integer> reportedCases = new HashMap<>();
+        HashMap<String, Integer> pieChartData = new HashMap<>();
+        HashMap<String, HashMap<String, Integer>> lineChartData = new HashMap<>();
+
         DiseaseRepository diseaseRepository = new DiseaseRepository();
         diseaseRepository.getAllDiseases().subscribe(diseases -> {
             diseases.forEach(disease -> {
                 reportRepository.getReport(2019, disease.getId())
                         .subscribe(report -> {
-                            this.reportsList.add(report);
                             int totalCasesInAYear = report.getCases()
                                     .stream().map(CaseViewModel::getTotalCases)
                                     .mapToInt(Integer::intValue)
                                     .sum();
-                            reportedCases.put(disease.getName(), totalCasesInAYear);
+                            pieChartData.put(disease.getName(), totalCasesInAYear);
+
+                            HashMap<String, Integer> monthlyCases = new HashMap<>();
+                            report.getCases().forEach(caseViewModel -> {
+                                monthlyCases.put(caseViewModel.getMonth(), caseViewModel.getTotalCases());
+                            });
+                            lineChartData.put(disease.getName(), monthlyCases);
                         });
             });
         });
-        reportView.displayPieChartAnalytics(reportedCases);
+        reportView.displayPieChartAnalytics(pieChartData);
+        reportView.displayLineChartAnalytics(lineChartData);
     }
 
     public void setView(IReportView view) {

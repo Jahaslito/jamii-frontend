@@ -1,8 +1,8 @@
 package com.tabibu.desktop.report;
 
 public class CaseViewModel {
-    String month;
-    int totalCases;
+    private String month;
+    private int totalCases;
 
     public String getMonth() {
         return month;

@@ -2,10 +2,7 @@ package com.tabibu.desktop.report;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.PieChart;
+import javafx.scene.chart.*;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -19,8 +16,6 @@ public class ReportsView extends VBox implements IReportView {
     public void loadData() {
         this.controller.getAllReports();
     }
-
-
 
     public void setController(IReportController controller) {
         this.controller = controller;
@@ -45,10 +40,19 @@ public class ReportsView extends VBox implements IReportView {
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Month");
-        final LineChart<String,Number> lineChart =
-                new LineChart<String,Number>(xAxis,yAxis);
+        final LineChart<String, Number> lineChart =
+                new LineChart<>(xAxis, yAxis);
 
-        lineChart.setTitle("Diagnosis ,2019");
+        lineChart.setTitle("Diagnoses, 2019");
+        reportedCases.forEach((disease, diseaseData) -> {
+            XYChart.Series series = new XYChart.Series();
+            series.setName(disease);
+            diseaseData.forEach((month, totalCases) -> {
+                series.getData().add(new XYChart.Data(month, totalCases));
+                lineChart.getData().add(series);
+            });
 
+        });
+        this.getChildren().add(lineChart);
     }
 }

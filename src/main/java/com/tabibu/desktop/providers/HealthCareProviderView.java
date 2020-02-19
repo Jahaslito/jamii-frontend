@@ -1,5 +1,7 @@
 package com.tabibu.desktop.providers;
 
+import com.tabibu.desktop.diagnosis.DiagnosisViewModel;
+import com.tabibu.desktop.util.TableBuilder;
 import io.reactivex.Single;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,8 +16,7 @@ import java.util.List;
 public class HealthCareProviderView extends Group implements IHealthCareProviderView {
 
     private IHealthCareProviderController controller;
-    private ObservableList<HealthCareProvider> providerList = FXCollections.observableArrayList();
-    private TableView providersTable = new TableView();
+    private ObservableList<HealthCareProvider> providersList = FXCollections.observableArrayList();
 
     public HealthCareProviderView() {
         initDataTable();
@@ -33,36 +34,23 @@ public class HealthCareProviderView extends Group implements IHealthCareProvider
     public void displayHealthCareProviders(Single<List<HealthCareProvider>> providers) {
         providers.subscribe
                 (healthCareProviders -> {
-                    providerList.addAll(healthCareProviders);
+                    providersList.addAll(healthCareProviders);
                 });
     }
 
     public void initDataTable() {
-        providersTable.setEditable(true);
-        providersTable.setMinWidth(1000);
-        providersTable.setMinHeight(500);
-
-        TableColumn providerName = new TableColumn("Name");
-        TableColumn providerPhone = new TableColumn("Phone");
-        TableColumn providerEmail = new TableColumn("Email");
-        TableColumn providerLocation = new TableColumn("Location");
-
-        providerName.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider, Integer>("Name")
-        );
-        providerPhone.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider, String>("Phone")
-        );
-        providerEmail.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider, String>("Email")
-        );
-        providerLocation.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider, String>("Location")
-        );
-        providersTable.getColumns().addAll(providerName, providerPhone, providerEmail, providerLocation);
-        providersTable.setItems(providerList);
-
-
+        TableView providersTable = TableBuilder.createTable()
+                .withColumns(List.of(
+                        new TableColumn("Name"),
+                        new TableColumn("Phone"),
+                        new TableColumn("Email"),
+                        new TableColumn("Location")
+                )).withProperties(List.of(
+                        new PropertyValueFactory<DiagnosisViewModel, Integer>("name"),
+                        new PropertyValueFactory<DiagnosisViewModel, String>("email"),
+                        new PropertyValueFactory<DiagnosisViewModel, String>("phone"),
+                        new PropertyValueFactory<DiagnosisViewModel, String>("location")
+                )).withData(providersList).build();
         this.getChildren().add(providersTable);
     }
 }

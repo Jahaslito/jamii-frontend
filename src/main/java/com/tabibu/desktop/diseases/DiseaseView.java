@@ -1,6 +1,7 @@
 package com.tabibu.desktop.diseases;
 
-import com.tabibu.desktop.providers.HealthCareProvider;
+import com.tabibu.desktop.diagnosis.DiagnosisViewModel;
+import com.tabibu.desktop.util.TableBuilder;
 import io.reactivex.Single;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,8 +15,7 @@ import java.util.List;
 public class DiseaseView extends Group implements IDiseaseView {
 
     private IDiseaseController controller;
-    private ObservableList<Disease> diseaseList = FXCollections.observableArrayList();
-    private TableView diseaseTable = new TableView();
+    private ObservableList<Disease> diseasesList = FXCollections.observableArrayList();
 
     public DiseaseView() {
         initDataTable();
@@ -33,34 +33,19 @@ public class DiseaseView extends Group implements IDiseaseView {
     public void displayAllDiseases(Single<List<Disease>> diseases) {
         diseases.subscribe
                 (disease -> {
-                    diseaseList.addAll(disease);
+                    diseasesList.addAll(disease);
                 });
     }
 
     public void initDataTable() {
-        diseaseTable.setEditable(true);
-        diseaseTable.setMinWidth(1000);
-        diseaseTable.setMinHeight(500);
-
-        TableColumn diseaseName = new TableColumn("Name");
-        TableColumn diseaseId = new TableColumn("id");
-        TableColumn diseaseDescription = new TableColumn("Description");
-
-
-        diseaseName.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider, String>("Name")
-        );
-        diseaseDescription.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider, String>("Description")
-        );
-        diseaseId.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider, Integer>("id")
-        );
-
-        diseaseTable.getColumns().addAll(diseaseName, diseaseDescription);
-        diseaseTable.setItems(diseaseList);
-
-
-        this.getChildren().add(diseaseTable);
+        TableView diseasesTable = TableBuilder.createTable()
+                .withColumns(List.of(
+                        new TableColumn("Name"),
+                        new TableColumn("Description")
+                )).withProperties(List.of(
+                        new PropertyValueFactory<DiagnosisViewModel, Integer>("name"),
+                        new PropertyValueFactory<DiagnosisViewModel, String>("description")
+                )).withData(diseasesList).build();
+        this.getChildren().add(diseasesTable);
     }
 }

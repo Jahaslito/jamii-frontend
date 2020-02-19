@@ -51,6 +51,8 @@ public class TableBuilder {
     public TableView build() {
         TableView table = new TableView();
         table.setEditable(true);
+        table.setMinHeight(this.tableMinHeight);
+        table.setMinWidth(this.tableMinWidth);
         table.setItems(tableData);
         table.getColumns().addAll(columns);
         return table;

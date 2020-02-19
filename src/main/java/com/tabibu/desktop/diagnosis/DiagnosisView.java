@@ -1,7 +1,9 @@
 package com.tabibu.desktop.diagnosis;
 
+import com.tabibu.desktop.death.Death;
 import com.tabibu.desktop.diseases.Disease;
 import com.tabibu.desktop.providers.HealthCareProvider;
+import com.tabibu.desktop.util.TableBuilder;
 import io.reactivex.Single;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,8 +17,7 @@ import java.util.List;
 public class DiagnosisView extends VBox implements IDiagnosisView {
 
     private IDiagnosisController controller;
-    private ObservableList<Diagnosis> diagnosisList = FXCollections.observableArrayList();
-    private TableView diagnosesTable = new TableView();
+    private ObservableList<DiagnosisViewModel> diagnosisList = FXCollections.observableArrayList();
 
     public DiagnosisView() {
         initDataTable();
@@ -31,39 +32,25 @@ public class DiagnosisView extends VBox implements IDiagnosisView {
     }
 
     @Override
-    public void displayAllDiagnosis(Single<List<Diagnosis>> diagnosis) {
-        diagnosis.subscribe
-                (diagnosis1 -> {
-                    diagnosisList.addAll(diagnosis1);
-                });
+    public void displayAllDiagnosis(List<DiagnosisViewModel> diagnoses) {
+        diagnosisList.addAll(diagnoses);
     }
 
-    public void initDataTable(){
-        diagnosesTable.setEditable(true);
-        diagnosesTable.setMinWidth(1000);
-        diagnosesTable.setMinHeight(500);
+    public void initDataTable() {
+        TableView diagnosisTable = TableBuilder.createTable()
+                .withColumns(List.of(
+                        new TableColumn("Patient Age"),
+                        new TableColumn("Diagnosis Date"),
+                        new TableColumn("Health Care Provider"),
+                        new TableColumn("Diseases")
+                )).withProperties(List.of(
+                        new PropertyValueFactory<DiagnosisViewModel, Integer>("patientAge"),
+                        new PropertyValueFactory<DiagnosisViewModel, String>("diagnosisDate"),
+                        new PropertyValueFactory<DiagnosisViewModel, String>("healthCareProvider"),
+                        new PropertyValueFactory<DiagnosisViewModel, String>("diseases")
+                )).withData(diagnosisList).build();
 
-        TableColumn diagnosisId = new TableColumn("Name");
-        TableColumn providerId = new TableColumn("id");
-        TableColumn diseaseDescription = new TableColumn("Description");
-
-
-        diagnosisId.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider, String>("Name")
-        );
-        diseaseDescription.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider,String>("Description")
-        );
-        providerId.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider,Integer>("id")
-        );
-
-        diagnosesTable.getColumns().addAll(diagnosisId, diseaseDescription);
-        diagnosesTable.setItems(diagnosisList);
-
-
-
-        this.getChildren().add(diagnosesTable);
+        this.getChildren().add(diagnosisTable);
     }
 
 }

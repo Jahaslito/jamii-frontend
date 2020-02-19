@@ -92,10 +92,12 @@ public class TabibuApplication extends Application {
                         new DiseaseModule(diseaseView),
                         new DeathModule(deathView),
                         new DiagnosisModule(diagnosisView),
-                        new ReportModule(reportsView)
+                        new ReportModule(reportsView),
+                        new LineChartView(reportsView)
                 )
                         .toolbarLeft(new ToolbarItem("Tabibu Healthcare"))
                         .navigationDrawerItems(item1, item2, item3, item4)
+                        .modulesPerPage(4)
                         .build();
 
         item1.setOnAction(event -> workbench.showConfirmationDialog("Reset settings",

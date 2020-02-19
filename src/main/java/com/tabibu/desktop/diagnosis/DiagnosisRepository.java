@@ -10,7 +10,7 @@ public class DiagnosisRepository implements IDiagnosisRepository {
     TabibuApiService apiService= TabibuApplication.getApiService();
 
     @Override
-    public Single<List<Diagnosis>> getAllDiagnosis(int providerId) {
-        return apiService.getAllDiagnosis(providerId);
+    public Single<List<Diagnosis>> getAllDiagnosis() {
+        return apiService.getAllDiagnosis();
     }
 }

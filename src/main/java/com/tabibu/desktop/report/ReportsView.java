@@ -11,7 +11,15 @@ import java.util.List;
 
 
 public class ReportsView extends VBox implements IReportView {
-    IReportController controller;
+    private IReportController controller;
+
+    public LineChart getChart() {
+        return chart;
+    }
+
+
+
+    private LineChart chart;
 
     public void loadData() {
         this.controller.getAllReports();
@@ -32,6 +40,8 @@ public class ReportsView extends VBox implements IReportView {
 
         final PieChart chart = new PieChart(pieChartData);
         chart.setTitle(" Reported Cases of Diseases in 2019");
+        chart.setMinWidth(600);
+        chart.setMinHeight(550);
         this.getChildren().add(chart);
     }
 
@@ -52,6 +62,8 @@ public class ReportsView extends VBox implements IReportView {
             });
             lineChart.getData().add(series);
         });
-        this.getChildren().add(lineChart);
+        chart=lineChart;
+
     }
+
 }

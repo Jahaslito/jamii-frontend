@@ -1,16 +1,16 @@
 package com.tabibu.desktop.death;
 
+import com.tabibu.desktop.common.TabibuView;
 import com.tabibu.desktop.util.TableBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 
 import java.util.List;
 
-public class DeathView extends VBox implements IDeathView {
+public class DeathView extends TabibuView implements IDeathView {
 
     private IDeathController controller;
     private ObservableList<DeathViewModel> deathList = FXCollections.observableArrayList();
@@ -47,5 +47,20 @@ public class DeathView extends VBox implements IDeathView {
                         new PropertyValueFactory<Death, String>("diseaseName")
                 )).withData(deathList).build();
         this.getChildren().add(deathsTable);
+    }
+
+    @Override
+    public void showLoadingUI() {
+        super.showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoadingUI() {
+        super.hideLoadingDialog();
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        super.showErrorDialog(message);
     }
 }

@@ -1,16 +1,16 @@
 package com.tabibu.desktop.diagnosis;
 
+import com.tabibu.desktop.common.TabibuView;
 import com.tabibu.desktop.util.TableBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 
 import java.util.List;
 
-public class DiagnosisView extends VBox implements IDiagnosisView {
+public class DiagnosisView extends TabibuView implements IDiagnosisView {
 
     private IDiagnosisController controller;
     private ObservableList<DiagnosisViewModel> diagnosisList = FXCollections.observableArrayList();

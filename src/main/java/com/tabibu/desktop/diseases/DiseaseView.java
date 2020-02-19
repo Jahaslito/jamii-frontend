@@ -1,18 +1,18 @@
 package com.tabibu.desktop.diseases;
 
+import com.tabibu.desktop.common.TabibuView;
 import com.tabibu.desktop.diagnosis.DiagnosisViewModel;
 import com.tabibu.desktop.util.TableBuilder;
 import io.reactivex.Single;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Group;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.List;
 
-public class DiseaseView extends Group implements IDiseaseView {
+public class DiseaseView extends TabibuView implements IDiseaseView {
 
     private IDiseaseController controller;
     private ObservableList<Disease> diseasesList = FXCollections.observableArrayList();
@@ -47,5 +47,20 @@ public class DiseaseView extends Group implements IDiseaseView {
                         new PropertyValueFactory<DiagnosisViewModel, String>("description")
                 )).withData(diseasesList).build();
         this.getChildren().add(diseasesTable);
+    }
+
+    @Override
+    public void showLoadingUI() {
+        super.showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoadingUI() {
+        super.hideLoadingDialog();
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        super.showErrorDialog(message);
     }
 }

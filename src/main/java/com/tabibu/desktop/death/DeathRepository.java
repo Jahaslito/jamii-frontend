@@ -1,6 +1,6 @@
 package com.tabibu.desktop.death;
 
-import com.tabibu.desktop.data.BaseRepository;
+import com.tabibu.desktop.common.BaseRepository;
 import io.reactivex.Single;
 
 import java.util.List;

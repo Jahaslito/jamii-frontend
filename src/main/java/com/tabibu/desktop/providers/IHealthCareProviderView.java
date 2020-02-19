@@ -1,9 +1,9 @@
 package com.tabibu.desktop.providers;
 
-import io.reactivex.Single;
+import com.tabibu.desktop.common.BaseView;
 
 import java.util.List;
 
-public interface IHealthCareProviderView {
-    void displayHealthCareProviders(Single<List<HealthCareProvider>> providers);
+public interface IHealthCareProviderView extends BaseView {
+    void displayHealthCareProviders(List<HealthCareProvider> providers);
 }

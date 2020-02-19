@@ -1,16 +1,16 @@
 package com.tabibu.desktop.report;
 
+import com.tabibu.desktop.common.TabibuView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.*;
-import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class ReportsView extends VBox implements IReportView {
+public class ReportsView extends TabibuView implements IReportView {
     private IReportController controller;
 
     private final CategoryAxis xAxisLineChart = new CategoryAxis();
@@ -51,9 +51,6 @@ public class ReportsView extends VBox implements IReportView {
 
         diseaseDeathTollPieChart.setData(tollData);
         diseaseDeathTollPieChart.setTitle("Diseases Death Toll in 2019");
-
-        this.getChildren().add(diseaseFrequencyPieChart);
-        this.getChildren().add(diseaseDeathTollPieChart);
     }
 
     @Override
@@ -69,7 +66,6 @@ public class ReportsView extends VBox implements IReportView {
             });
             diseaseTrendLineChart.getData().add(series);
         });
-        this.getChildren().add(diseaseTrendLineChart);
     }
 
     public LineChart<String, Number> getDiseaseTrendLineChart() {

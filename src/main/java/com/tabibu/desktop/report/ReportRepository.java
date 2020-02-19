@@ -1,6 +1,6 @@
 package com.tabibu.desktop.report;
 
-import com.tabibu.desktop.data.BaseRepository;
+import com.tabibu.desktop.common.BaseRepository;
 import io.reactivex.Single;
 
 public class ReportRepository implements BaseRepository<ReportViewModel>, IReportRepository {

@@ -1,11 +1,10 @@
 package com.tabibu.desktop.providers;
 
+import com.tabibu.desktop.common.TabibuView;
 import com.tabibu.desktop.diagnosis.DiagnosisViewModel;
 import com.tabibu.desktop.util.TableBuilder;
-import io.reactivex.Single;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Group;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,7 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.List;
 
 
-public class HealthCareProviderView extends Group implements IHealthCareProviderView {
+public class HealthCareProviderView extends TabibuView implements IHealthCareProviderView {
 
     private IHealthCareProviderController controller;
     private ObservableList<HealthCareProvider> providersList = FXCollections.observableArrayList();
@@ -31,11 +30,8 @@ public class HealthCareProviderView extends Group implements IHealthCareProvider
     }
 
     @Override
-    public void displayHealthCareProviders(Single<List<HealthCareProvider>> providers) {
-        providers.subscribe
-                (healthCareProviders -> {
-                    providersList.addAll(healthCareProviders);
-                });
+    public void displayHealthCareProviders(List<HealthCareProvider> providers) {
+        providersList.addAll(providers);
     }
 
     public void initDataTable() {
@@ -52,5 +48,20 @@ public class HealthCareProviderView extends Group implements IHealthCareProvider
                         new PropertyValueFactory<DiagnosisViewModel, String>("location")
                 )).withData(providersList).build();
         this.getChildren().add(providersTable);
+    }
+
+    @Override
+    public void showLoadingUI() {
+        super.showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoadingUI() {
+        super.hideLoadingDialog();
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        super.showErrorDialog(message);
     }
 }

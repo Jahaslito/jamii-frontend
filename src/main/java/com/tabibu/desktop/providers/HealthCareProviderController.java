@@ -10,7 +10,13 @@ public class HealthCareProviderController implements IHealthCareProviderControll
 
     @Override
     public void getAllProviders() {
-        healthCareProviderView.displayHealthCareProviders(providerRepository.getAllProviders());
+        healthCareProviderView.showLoadingUI();
+        providerRepository.getAllProviders()
+                .doOnError(error -> healthCareProviderView.showErrorMessage(error.getMessage()))
+                .doAfterTerminate(() -> healthCareProviderView.hideLoadingUI())
+                .subscribe(healthCareProviders -> {
+            healthCareProviderView.displayHealthCareProviders(healthCareProviders);
+        });
     }
 
     public void setView(IHealthCareProviderView view) {

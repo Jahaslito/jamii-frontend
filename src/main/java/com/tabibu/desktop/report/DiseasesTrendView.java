@@ -5,15 +5,15 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.scene.Node;
 
 public class DiseasesTrendView extends WorkbenchModule {
-    private ReportsView view;
+    private ReportsView reportsView;
 
-    public DiseasesTrendView(ReportsView view) {
+    public DiseasesTrendView(ReportsView reportsView) {
         super("Disease Trend Analysis", FontAwesomeIcon.LINE_CHART);
-        this.view = view;
+        this.reportsView = reportsView;
     }
 
     @Override
     public Node activate() {
-        return view.getDiseaseTrendLineChart();
+        return reportsView.getDiseaseTrendLineChart();
     }
 }

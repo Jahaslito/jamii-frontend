@@ -80,10 +80,10 @@ public class TabibuApplication extends Application {
 
     private Workbench initWorkbench() {
         // Navigation Drawer
-        MenuItem item1 = new MenuItem("Death records", new MaterialDesignIconView(MaterialDesignIcon.EMOTICON_DEAD));
-        MenuItem item2 = new MenuItem("Disease records", new MaterialDesignIconView(MaterialDesignIcon.PRINTER));
-        MenuItem item3 = new MenuItem("health care providers", new MaterialDesignIconView(MaterialDesignIcon.HOSPITAL));
-        MenuItem item4 = new MenuItem("Diagnoses", new MaterialDesignIconView(MaterialDesignIcon.BELL));
+        MenuItem deathMenu = new MenuItem("Death records", new MaterialDesignIconView(MaterialDesignIcon.EMOTICON_DEAD));
+        MenuItem diseaseMenu = new MenuItem("Disease records", new MaterialDesignIconView(MaterialDesignIcon.PRINTER));
+        MenuItem providersMenu = new MenuItem("health care providers", new MaterialDesignIconView(MaterialDesignIcon.HOSPITAL));
+        MenuItem diagnosesMenu = new MenuItem("Diagnoses", new MaterialDesignIconView(MaterialDesignIcon.BELL));
 
         // WorkbenchFX
         workbench =
@@ -92,16 +92,17 @@ public class TabibuApplication extends Application {
                         new DiseaseModule(diseaseView),
                         new DeathModule(deathView),
                         new DiagnosisModule(diagnosisView),
-                        new ReportModule(reportsView)
+                        new DiseasesFrequencyView(reportsView),
+                        new DiseasesTrendView(reportsView)
                 )
                         .toolbarLeft(new ToolbarItem("Tabibu Healthcare"))
-                        .navigationDrawerItems(item1, item2, item3, item4)
+                        .navigationDrawerItems(deathMenu, diseaseMenu, providersMenu, diagnosesMenu)
                         .build();
 
-        item1.setOnAction(event -> workbench.showConfirmationDialog("Reset settings",
+        deathMenu.setOnAction(event -> workbench.showConfirmationDialog("Reset settings",
                 "Are you sure you want to reset all your settings?", null));
-        item2.setOnAction(event -> workbench.hideNavigationDrawer());
-        item3.setOnAction(event -> workbench.hideNavigationDrawer());
+        diseaseMenu.setOnAction(event -> workbench.hideNavigationDrawer());
+        providersMenu.setOnAction(event -> workbench.hideNavigationDrawer());
         workbench.getStylesheets().add(this.getClass().getResource("/theme.css").toExternalForm());
 
         return workbench;

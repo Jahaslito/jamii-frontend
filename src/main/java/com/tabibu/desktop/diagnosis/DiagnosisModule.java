@@ -11,7 +11,7 @@ public class DiagnosisModule extends WorkbenchModule {
     DiagnosisView diagnosis;
 
     public DiagnosisModule(DiagnosisView diagnosis) {
-        super("Diagnosis", MaterialDesignIcon.THERMOMETER); // a name and an icon is required
+        super("Diagnosis Records", MaterialDesignIcon.THERMOMETER);
         this.diagnosis=diagnosis;
     }
 

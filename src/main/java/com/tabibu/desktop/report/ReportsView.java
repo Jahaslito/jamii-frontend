@@ -11,7 +11,13 @@ import java.util.List;
 
 
 public class ReportsView extends VBox implements IReportView {
-    IReportController controller;
+    private IReportController controller;
+
+    private final CategoryAxis xAxisLineChart = new CategoryAxis();
+    private final NumberAxis yAxisLineChart = new NumberAxis();
+    private final LineChart<String, Number> lineChart = new LineChart<>(xAxisLineChart, yAxisLineChart);
+
+    private final PieChart pieChart = new PieChart();
 
     public void loadData() {
         this.controller.getAllReports();
@@ -30,20 +36,16 @@ public class ReportsView extends VBox implements IReportView {
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(data);
 
-        final PieChart chart = new PieChart(pieChartData);
-        chart.setTitle(" Reported Cases of Diseases in 2019");
-        this.getChildren().add(chart);
+        pieChart.setData(pieChartData);
+        pieChart.setTitle(" Reported Cases of Diseases in 2019");
+        this.getChildren().add(pieChart);
     }
 
     @Override
     public void displayLineChartAnalytics(HashMap<String, HashMap<String, Integer>> reportedCases) {
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Month");
-        final LineChart<String, Number> lineChart =
-                new LineChart<>(xAxis, yAxis);
-
         lineChart.setTitle("Diagnoses, 2019");
+        xAxisLineChart.setLabel("Month");
+
         reportedCases.forEach((disease, diseaseData) -> {
             XYChart.Series series = new XYChart.Series();
             series.setName(disease);
@@ -53,5 +55,13 @@ public class ReportsView extends VBox implements IReportView {
             lineChart.getData().add(series);
         });
         this.getChildren().add(lineChart);
+    }
+
+    public LineChart<String, Number> getLineChart() {
+        return this.lineChart;
+    }
+
+    public PieChart getPieChart() {
+        return this.pieChart;
     }
 }

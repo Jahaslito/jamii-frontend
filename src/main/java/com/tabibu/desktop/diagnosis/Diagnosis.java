@@ -3,14 +3,13 @@ package com.tabibu.desktop.diagnosis;
 import com.tabibu.desktop.diseases.Disease;
 import com.tabibu.desktop.providers.HealthCareProvider;
 
-import java.sql.Date;
 import java.util.List;
 
 public class Diagnosis {
     private int id;
     private HealthCareProvider healthCareProvider;
     private int patientAge;
-    private Date diagnosisDate;
+    private String diagnosisDate;
     private List<Disease> diseases;
 
     public int getId() {
@@ -37,11 +36,11 @@ public class Diagnosis {
         this.patientAge = patientAge;
     }
 
-    public Date getDiagnosisDate() {
+    public String getDiagnosisDate() {
         return diagnosisDate;
     }
 
-    public void setDiagnosisDate(Date diagnosisDate) {
+    public void setDiagnosisDate(String diagnosisDate) {
         this.diagnosisDate = diagnosisDate;
     }
 

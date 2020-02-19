@@ -33,13 +33,13 @@ public interface TabibuApiService {
     Single<List<Death>> getAllDeaths();
 
     @GET("diagnosis")
-    Single<List<Diagnosis>> getAllDiagnosis(@Query("healthCareProviderId") int providerId);
+    Single<List<Diagnosis>> getAllDiagnosis();
 
     @POST("death")
     Call<DeathViewModel> createPost(@Body DeathViewModel death);
 
     @GET("reports")
-    Single <ReportViewModel> getReport(@Query("year") int year,@Query("diseaseId") int diseaseId);
+    Single <ReportViewModel> getReport(@Query("year") int year,@Query("diseaseId") Integer diseaseId);
 
 
 

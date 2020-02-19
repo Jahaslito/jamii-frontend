@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TableBuilder {
-    private static TableBuilder builder;
     private List<TableColumn> columns = new ArrayList<>();
     private ObservableList tableData;
     private int tableMinHeight = 500, tableMinWidth = 1000;
@@ -18,10 +17,7 @@ public class TableBuilder {
     private TableBuilder() {}
 
     public static TableBuilder createTable() {
-        if(builder == null) {
-            builder = new TableBuilder();
-        }
-        return builder;
+        return new TableBuilder();
     }
 
     public TableBuilder withColumns(List<TableColumn> columns) {
@@ -31,7 +27,7 @@ public class TableBuilder {
 
     public TableBuilder withProperties(List<PropertyValueFactory<?, ?>> props) {
         this.columns.forEach( column -> {
-            column.setCellValueFactory(props.get(columns.indexOf(column)));
+             column.setCellValueFactory(props.get(columns.indexOf(column)));
         });
         return this;
     }

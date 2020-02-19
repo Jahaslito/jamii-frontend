@@ -14,6 +14,6 @@ public class DiseasesTrendView extends WorkbenchModule {
 
     @Override
     public Node activate() {
-        return view.getLineChart();
+        return view.getDiseaseTrendLineChart();
     }
 }

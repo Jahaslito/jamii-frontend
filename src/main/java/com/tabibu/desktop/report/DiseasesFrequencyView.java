@@ -14,6 +14,6 @@ public class DiseasesFrequencyView extends WorkbenchModule {
 
     @Override
     public Node activate() {
-        return view.getPieChart();
+        return view.getDiseaseFrequencyPieChart();
     }
 }

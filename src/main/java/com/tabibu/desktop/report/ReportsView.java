@@ -15,9 +15,10 @@ public class ReportsView extends VBox implements IReportView {
 
     private final CategoryAxis xAxisLineChart = new CategoryAxis();
     private final NumberAxis yAxisLineChart = new NumberAxis();
-    private final LineChart<String, Number> lineChart = new LineChart<>(xAxisLineChart, yAxisLineChart);
+    private final LineChart<String, Number> diseaseTrendLineChart = new LineChart<>(xAxisLineChart, yAxisLineChart);
 
-    private final PieChart pieChart = new PieChart();
+    private final PieChart diseaseFrequencyPieChart = new PieChart();
+    private final PieChart diseaseDeathTollPieChart = new PieChart();
 
     public void loadData() {
         this.controller.getAllReports();
@@ -28,22 +29,36 @@ public class ReportsView extends VBox implements IReportView {
     }
 
     @Override
-    public void displayPieChartAnalytics(HashMap<String, Integer> reportCases) {
-        List<PieChart.Data> data = new ArrayList<>();
-        reportCases.forEach((disease, totalCases) -> {
-            data.add(new PieChart.Data(disease, Double.valueOf(totalCases)));
-        });
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(data);
+    public void displayPieChartAnalytics(HashMap<String, Integer> reportCases,
+                                         HashMap<String, Integer> deathToll) {
+        List<PieChart.Data> diseaseFrequencyData = new ArrayList<>();
+        List<PieChart.Data> diseaseDeathTollData = new ArrayList<>();
 
-        pieChart.setData(pieChartData);
-        pieChart.setTitle(" Reported Cases of Diseases in 2019");
-        this.getChildren().add(pieChart);
+        reportCases.forEach((disease, totalCases) -> {
+            diseaseFrequencyData.add(new PieChart.Data(disease, Double.valueOf(totalCases)));
+        });
+        deathToll.forEach((disease, totalDeaths) -> {
+            diseaseDeathTollData.add(new PieChart.Data(disease, Double.valueOf(totalDeaths)));
+        });
+
+        ObservableList<PieChart.Data> frequencyData =
+                FXCollections.observableArrayList(diseaseFrequencyData);
+        ObservableList<PieChart.Data> tollData =
+                FXCollections.observableArrayList(diseaseDeathTollData);
+
+        diseaseFrequencyPieChart.setData(frequencyData);
+        diseaseFrequencyPieChart.setTitle("Reported Cases of Diseases in 2019");
+
+        diseaseDeathTollPieChart.setData(tollData);
+        diseaseDeathTollPieChart.setTitle("Diseases Death Toll in 2019");
+
+        this.getChildren().add(diseaseFrequencyPieChart);
+        this.getChildren().add(diseaseDeathTollPieChart);
     }
 
     @Override
     public void displayLineChartAnalytics(HashMap<String, HashMap<String, Integer>> reportedCases) {
-        lineChart.setTitle("Diagnoses, 2019");
+        diseaseTrendLineChart.setTitle("Diagnoses, 2019");
         xAxisLineChart.setLabel("Month");
 
         reportedCases.forEach((disease, diseaseData) -> {
@@ -52,16 +67,20 @@ public class ReportsView extends VBox implements IReportView {
             diseaseData.forEach((month, totalCases) -> {
                 series.getData().add(new XYChart.Data(month, totalCases));
             });
-            lineChart.getData().add(series);
+            diseaseTrendLineChart.getData().add(series);
         });
-        this.getChildren().add(lineChart);
+        this.getChildren().add(diseaseTrendLineChart);
     }
 
-    public LineChart<String, Number> getLineChart() {
-        return this.lineChart;
+    public LineChart<String, Number> getDiseaseTrendLineChart() {
+        return this.diseaseTrendLineChart;
     }
 
-    public PieChart getPieChart() {
-        return this.pieChart;
+    public PieChart getDiseaseFrequencyPieChart() {
+        return this.diseaseFrequencyPieChart;
+    }
+
+    public PieChart getDiseaseDeathTollPieChart() {
+        return diseaseDeathTollPieChart;
     }
 }

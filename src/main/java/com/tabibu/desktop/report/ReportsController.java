@@ -20,8 +20,10 @@ public class ReportsController implements IReportController {
     }
 
     public void getAllReports() {
-        HashMap<String, Integer> pieChartData = new HashMap<>();
+        HashMap<String, Integer> pieChartFrequencyData = new HashMap<>();
         HashMap<String, HashMap<String, Integer>> lineChartData = new HashMap<>();
+
+        HashMap<String, Integer> pieChartTollData = new HashMap<>();
 
         DiseaseRepository diseaseRepository = new DiseaseRepository();
         diseaseRepository.getAllDiseases().subscribe(diseases -> {
@@ -32,7 +34,8 @@ public class ReportsController implements IReportController {
                                     .stream().map(CaseViewModel::getTotalCases)
                                     .mapToInt(Integer::intValue)
                                     .sum();
-                            pieChartData.put(disease.getName(), totalCasesInAYear);
+                            pieChartFrequencyData.put(disease.getName(), totalCasesInAYear);
+                            pieChartTollData.put(disease.getName(), report.getTotalReportedDeaths());
 
                             HashMap<String, Integer> monthlyCases = new HashMap<>();
                             report.getCases().forEach(caseViewModel -> {
@@ -42,7 +45,7 @@ public class ReportsController implements IReportController {
                         });
             });
         });
-        reportView.displayPieChartAnalytics(pieChartData);
+        reportView.displayPieChartAnalytics(pieChartFrequencyData, pieChartTollData);
         reportView.displayLineChartAnalytics(lineChartData);
     }
 

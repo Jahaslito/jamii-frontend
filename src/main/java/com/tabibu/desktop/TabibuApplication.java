@@ -8,6 +8,9 @@ import com.tabibu.desktop.diagnosis.*;
 import com.tabibu.desktop.diseases.*;
 import com.tabibu.desktop.providers.*;
 import com.tabibu.desktop.report.*;
+import com.tabibu.desktop.util.Constants;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Application;
@@ -38,6 +41,7 @@ public class TabibuApplication extends Application {
         primaryStage.setScene(myScene);
         primaryStage.setMaximized(true);
         primaryStage.getIcons().add(launcherIcon);
+        primaryStage.setTitle("Tabibu Healthcare");
         primaryStage.show();
     }
 
@@ -80,10 +84,10 @@ public class TabibuApplication extends Application {
 
     private Workbench initWorkbench() {
         // Navigation Drawer
-        MenuItem deathMenu = new MenuItem("Death records", new MaterialDesignIconView(MaterialDesignIcon.EMOTICON_DEAD));
-        MenuItem diseaseMenu = new MenuItem("Disease records", new MaterialDesignIconView(MaterialDesignIcon.PRINTER));
-        MenuItem providersMenu = new MenuItem("health care providers", new MaterialDesignIconView(MaterialDesignIcon.HOSPITAL));
-        MenuItem diagnosesMenu = new MenuItem("Diagnoses", new MaterialDesignIconView(MaterialDesignIcon.BELL));
+        MenuItem providersMenu = new MenuItem("Healthcare Providers", new MaterialDesignIconView(MaterialDesignIcon.HOSPITAL));
+        MenuItem diseaseMenu = new MenuItem("Disease Records", new FontAwesomeIconView(FontAwesomeIcon.BUG));
+        MenuItem deathMenu = new MenuItem("Death Records", new FontAwesomeIconView(FontAwesomeIcon.USER_TIMES));
+        MenuItem diagnosesMenu = new MenuItem("Diagnosis Records", new MaterialDesignIconView(MaterialDesignIcon.THERMOMETER));
 
         // WorkbenchFX
         workbench =
@@ -93,7 +97,8 @@ public class TabibuApplication extends Application {
                         new DeathModule(deathView),
                         new DiagnosisModule(diagnosisView),
                         new DiseasesFrequencyView(reportsView),
-                        new DiseasesTrendView(reportsView)
+                        new DiseasesTrendView(reportsView),
+                        new DiseasesDeathTollView(reportsView)
                 )
                         .toolbarLeft(new ToolbarItem("Tabibu Healthcare"))
                         .navigationDrawerItems(deathMenu, diseaseMenu, providersMenu, diagnosesMenu)
@@ -114,7 +119,7 @@ public class TabibuApplication extends Application {
 
     public static TabibuApiService getApiService() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-54-169-6-222.ap-southeast-1.compute.amazonaws.com/api/v1/")
+                .baseUrl(Constants.TABIBU_API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

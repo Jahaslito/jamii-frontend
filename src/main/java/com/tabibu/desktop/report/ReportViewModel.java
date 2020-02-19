@@ -7,6 +7,7 @@ import java.util.List;
 public class ReportViewModel {
     private Disease disease;
     private int year;
+    private int totalReportedDeaths;
     private List<CaseViewModel> cases;
 
     public void setDisease(Disease disease) {
@@ -31,5 +32,13 @@ public class ReportViewModel {
 
     public List<CaseViewModel> getCases() {
         return cases;
+    }
+
+    public int getTotalReportedDeaths() {
+        return totalReportedDeaths;
+    }
+
+    public void setTotalReportedDeaths(int totalReportedDeaths) {
+        this.totalReportedDeaths = totalReportedDeaths;
     }
 }

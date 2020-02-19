@@ -36,9 +36,9 @@ public class TabibuApplication extends Application {
         initWorkbench();
 
         Image launcherIcon = new Image("/logo.png");
-        Scene myScene = new Scene(workbench);
+        Scene workbenchScene = new Scene(workbench);
 
-        primaryStage.setScene(myScene);
+        primaryStage.setScene(workbenchScene);
         primaryStage.setMaximized(true);
         primaryStage.getIcons().add(launcherIcon);
         primaryStage.setTitle("Tabibu Healthcare");
@@ -82,7 +82,7 @@ public class TabibuApplication extends Application {
         reportsView.loadData();
     }
 
-    private Workbench initWorkbench() {
+    private void initWorkbench() {
         // Navigation Drawer
         MenuItem providersMenu = new MenuItem("Healthcare Providers", new MaterialDesignIconView(MaterialDesignIcon.HOSPITAL));
         MenuItem diseaseMenu = new MenuItem("Disease Records", new FontAwesomeIconView(FontAwesomeIcon.BUG));
@@ -90,9 +90,9 @@ public class TabibuApplication extends Application {
         MenuItem diagnosesMenu = new MenuItem("Diagnosis Records", new MaterialDesignIconView(MaterialDesignIcon.THERMOMETER));
 
         // WorkbenchFX
-        workbench =
+        this.workbench =
                 Workbench.builder(
-                        new ProviderModule(providerView),
+                        new HealthCareProviderModule(providerView),
                         new DiseaseModule(diseaseView),
                         new DeathModule(deathView),
                         new DiagnosisModule(diagnosisView),
@@ -101,16 +101,15 @@ public class TabibuApplication extends Application {
                         new DiseasesDeathTollView(reportsView)
                 )
                         .toolbarLeft(new ToolbarItem("Tabibu Healthcare"))
-                        .navigationDrawerItems(deathMenu, diseaseMenu, providersMenu, diagnosesMenu)
+                        .navigationDrawerItems(providersMenu, diseaseMenu, deathMenu, diagnosesMenu)
                         .build();
+        workbench.getStylesheets().add(this.getClass().getResource("/theme.css").toExternalForm());
 
+        // TODO: Open approriate modules
         deathMenu.setOnAction(event -> workbench.showConfirmationDialog("Reset settings",
                 "Are you sure you want to reset all your settings?", null));
         diseaseMenu.setOnAction(event -> workbench.hideNavigationDrawer());
         providersMenu.setOnAction(event -> workbench.hideNavigationDrawer());
-        workbench.getStylesheets().add(this.getClass().getResource("/theme.css").toExternalForm());
-
-        return workbench;
     }
 
     public static void main(String args) {

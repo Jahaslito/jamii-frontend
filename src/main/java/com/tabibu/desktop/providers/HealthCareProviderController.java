@@ -1,7 +1,5 @@
 package com.tabibu.desktop.providers;
 
-import io.reactivex.Single;
-
 public class HealthCareProviderController implements IHealthCareProviderController {
     private IHealthCareProviderView healthCareProviderView;
     private IProviderRepository providerRepository;
@@ -12,7 +10,6 @@ public class HealthCareProviderController implements IHealthCareProviderControll
 
     @Override
     public void getAllProviders() {
-
         healthCareProviderView.displayHealthCareProviders(providerRepository.getAllProviders());
     }
 

@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
-public class DeathView extends VBox implements IDeathView{
+public class DeathView extends VBox implements IDeathView {
 
     private IDeathController controller;
     private ObservableList<DeathViewModel> deathList = FXCollections.observableArrayList();
@@ -30,7 +30,7 @@ public class DeathView extends VBox implements IDeathView{
 
     @Override
     public void displayDeaths(List<DeathViewModel> deaths) {
-       deathList.addAll(deaths);
+        deathList.addAll(deaths);
     }
 
     public void initDataTable() {
@@ -46,7 +46,6 @@ public class DeathView extends VBox implements IDeathView{
                         new PropertyValueFactory<Death, String>("providerName"),
                         new PropertyValueFactory<Death, String>("diseaseName")
                 )).withData(deathList).build();
-
         this.getChildren().add(deathsTable);
     }
 }

@@ -1,18 +1,16 @@
 package com.tabibu.desktop.diseases;
 
-import com.tabibu.desktop.death.IDeathController;
-
 public class DiseaseController implements IDiseaseController {
-    IDiseaseRepository diseaserepository;
-    IDiseaseView diseaseView;
+    private IDiseaseRepository diseaseRepository;
+    private IDiseaseView diseaseView;
 
-    public DiseaseController(IDiseaseRepository diseaserepository) {
-        this.diseaserepository = diseaserepository;
+    public DiseaseController(IDiseaseRepository diseaseRepository) {
+        this.diseaseRepository = diseaseRepository;
     }
 
     @Override
     public void getAllDiseases() {
-        diseaseView.displayAllDiseases(diseaserepository.getAllDiseases());
+        diseaseView.displayAllDiseases(diseaseRepository.getAllDiseases());
 
     }
 

@@ -14,7 +14,8 @@ public class TableBuilder {
     private int tableMinHeight = 500, tableMinWidth = 1000;
 
 
-    private TableBuilder() {}
+    private TableBuilder() {
+    }
 
     public static TableBuilder createTable() {
         return new TableBuilder();
@@ -26,8 +27,8 @@ public class TableBuilder {
     }
 
     public TableBuilder withProperties(List<PropertyValueFactory<?, ?>> props) {
-        this.columns.forEach( column -> {
-             column.setCellValueFactory(props.get(columns.indexOf(column)));
+        this.columns.forEach(column -> {
+            column.setCellValueFactory(props.get(columns.indexOf(column)));
         });
         return this;
     }

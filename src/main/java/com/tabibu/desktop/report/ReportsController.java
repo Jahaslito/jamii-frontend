@@ -1,15 +1,8 @@
 package com.tabibu.desktop.report;
 
 import com.tabibu.desktop.diseases.DiseaseRepository;
-import com.tabibu.desktop.diseases.IDiseaseRepository;
-import io.reactivex.schedulers.Schedulers;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class ReportsController implements IReportController {
     private IReportRepository reportRepository;

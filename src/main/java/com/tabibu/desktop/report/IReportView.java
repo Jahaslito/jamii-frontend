@@ -1,7 +1,5 @@
 package com.tabibu.desktop.report;
 
-import javafx.scene.chart.Chart;
-
 import java.util.HashMap;
 
 public interface IReportView {

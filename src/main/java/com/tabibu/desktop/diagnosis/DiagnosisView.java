@@ -1,10 +1,6 @@
 package com.tabibu.desktop.diagnosis;
 
-import com.tabibu.desktop.death.Death;
-import com.tabibu.desktop.diseases.Disease;
-import com.tabibu.desktop.providers.HealthCareProvider;
 import com.tabibu.desktop.util.TableBuilder;
-import io.reactivex.Single;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -49,8 +45,6 @@ public class DiagnosisView extends VBox implements IDiagnosisView {
                         new PropertyValueFactory<DiagnosisViewModel, String>("healthCareProvider"),
                         new PropertyValueFactory<DiagnosisViewModel, String>("diseases")
                 )).withData(diagnosisList).build();
-
         this.getChildren().add(diagnosisTable);
     }
-
 }

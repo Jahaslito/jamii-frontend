@@ -1,20 +1,17 @@
 package com.tabibu.desktop.diseases;
 
 import com.tabibu.desktop.providers.HealthCareProvider;
-import com.tabibu.desktop.providers.IHealthCareProviderController;
 import io.reactivex.Single;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 
 import java.util.List;
 
-public class DiseaseView  extends Group implements IDiseaseView {
+public class DiseaseView extends Group implements IDiseaseView {
 
     private IDiseaseController controller;
     private ObservableList<Disease> diseaseList = FXCollections.observableArrayList();
@@ -34,13 +31,13 @@ public class DiseaseView  extends Group implements IDiseaseView {
 
     @Override
     public void displayAllDiseases(Single<List<Disease>> diseases) {
-       diseases.subscribe
+        diseases.subscribe
                 (disease -> {
-                   diseaseList.addAll(disease);
+                    diseaseList.addAll(disease);
                 });
     }
 
-    public void initDataTable(){
+    public void initDataTable() {
         diseaseTable.setEditable(true);
         diseaseTable.setMinWidth(1000);
         diseaseTable.setMinHeight(500);
@@ -54,15 +51,14 @@ public class DiseaseView  extends Group implements IDiseaseView {
                 new PropertyValueFactory<HealthCareProvider, String>("Name")
         );
         diseaseDescription.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider,String>("Description")
+                new PropertyValueFactory<HealthCareProvider, String>("Description")
         );
         diseaseId.setCellValueFactory(
-                new PropertyValueFactory<HealthCareProvider,Integer>("id")
+                new PropertyValueFactory<HealthCareProvider, Integer>("id")
         );
 
         diseaseTable.getColumns().addAll(diseaseName, diseaseDescription);
         diseaseTable.setItems(diseaseList);
-
 
 
         this.getChildren().add(diseaseTable);

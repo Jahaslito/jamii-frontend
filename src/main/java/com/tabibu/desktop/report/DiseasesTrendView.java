@@ -8,7 +8,7 @@ public class DiseasesTrendView extends WorkbenchModule {
     private ReportsView view;
 
     public DiseasesTrendView(ReportsView view) {
-        super("Disease Trend Analysis",FontAwesomeIcon.LINE_CHART);
+        super("Disease Trend Analysis", FontAwesomeIcon.LINE_CHART);
         this.view = view;
     }
 

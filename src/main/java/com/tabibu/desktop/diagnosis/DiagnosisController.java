@@ -1,11 +1,7 @@
 package com.tabibu.desktop.diagnosis;
 
 import com.tabibu.desktop.diseases.Disease;
-import com.tabibu.desktop.diseases.IDiseaseController;
-import io.reactivex.schedulers.Schedulers;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class DiagnosisController implements IDiagnosisController {

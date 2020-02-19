@@ -4,6 +4,6 @@ import io.reactivex.Single;
 
 import java.util.List;
 
-public interface  IDiagnosisRepository {
+public interface IDiagnosisRepository {
     Single<List<Diagnosis>> getAllDiagnosis();
 }

@@ -11,7 +11,6 @@ import retrofit2.Call;
 import retrofit2.http.*;
 
 import java.util.List;
-import java.util.Map;
 
 public interface TabibuApiService {
     @GET("providers")
@@ -19,9 +18,6 @@ public interface TabibuApiService {
 
     @GET("providers/{id}")
     Single<HealthCareProvider> getProvider(@Path("id") HealthCareProvider id);
-
-    @POST("provider")
-    void addProvider(@Body HealthCareProvider provider);
 
     @GET("diseases")
     Single<List<Disease>> getAllDiseases();
@@ -35,13 +31,6 @@ public interface TabibuApiService {
     @GET("diagnosis")
     Single<List<Diagnosis>> getAllDiagnosis();
 
-    @POST("death")
-    Call<DeathViewModel> createPost(@Body DeathViewModel death);
-
     @GET("reports")
-    Single <ReportViewModel> getReport(@Query("year") int year,@Query("diseaseId") Integer diseaseId);
-
-
-
-
+    Single<ReportViewModel> getReport(@Query("year") int year, @Query("diseaseId") Integer diseaseId);
 }

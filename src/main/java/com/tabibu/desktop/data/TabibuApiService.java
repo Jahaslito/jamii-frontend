@@ -16,14 +16,8 @@ public interface TabibuApiService {
     @GET("providers")
     Single<List<HealthCareProvider>> getAllProviders();
 
-    @GET("providers/{id}")
-    Single<HealthCareProvider> getProvider(@Path("id") HealthCareProvider id);
-
     @GET("diseases")
     Single<List<Disease>> getAllDiseases();
-
-    @GET("diseases/{id}")
-    Single<Disease> getDisease(@Path("id") Disease id);
 
     @GET("deaths")
     Single<List<Death>> getAllDeaths();
